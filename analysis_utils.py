@@ -45,3 +45,21 @@ def load_data(uploaded_file):
         return pd.read_excel(uploaded_file)
     else:
         raise ValueError("Unsupported file type")
+
+import plotly.express as px
+from scipy import stats
+
+def plot_histogram(df, col):
+    fig = px.histogram(df, x=col, nbins=30, title=f"Histogram of {col}")
+    return fig
+
+def plot_boxplot(df, col):
+    fig = px.box(df, y=col, title=f"Boxplot of {col}")
+    return fig
+
+def t_test_analysis(df, num_col, cat_col):
+    groups = df.groupby(cat_col)[num_col].apply(list)
+    group1, group2 = groups.iloc[0], groups.iloc[1]
+    t_stat, p_val = stats.ttest_ind(group1, group2, equal_var=False)
+    return {"t-statistic": t_stat, "p-value": p_val}
+
