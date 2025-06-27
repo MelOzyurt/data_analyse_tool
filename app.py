@@ -34,4 +34,11 @@ if uploaded_file:
         st.markdown("### Findings")
         st.write(interpret_chi_square(p_val))
 
-    # More analysis options can go here
+   
+if uploaded_file:
+    try:
+        df = load_data(uploaded_file)
+    except Exception as e:
+        st.error(f"Error loading file: {e}")
+
+ # More analysis options can go here

@@ -36,3 +36,12 @@ def chi_square_analysis(df, col1=None, col2=None):
     })
 
     return results, p
+def load_data(uploaded_file):
+    if uploaded_file is None:
+        return None
+    if uploaded_file.name.endswith('.csv'):
+        return pd.read_csv(uploaded_file)
+    elif uploaded_file.name.endswith('.xlsx'):
+        return pd.read_excel(uploaded_file)
+    else:
+        raise ValueError("Unsupported file type")
